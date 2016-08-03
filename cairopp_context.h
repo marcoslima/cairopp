@@ -370,11 +370,12 @@ public:
         return cairo_copy_clip_rectangle_list(_context);
     }
 
-    cairo_public void
+    inline void
     rectangle_list_destroy(cairo_rectangle_list_t *rectangle_list)
     {
         cairo_rectangle_list_destroy(rectangle_list);
     }
+
     inline void
     select_font_face(const char           *family,
                 cairo_font_slant_t   slant,

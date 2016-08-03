@@ -5,7 +5,9 @@ using namespace std;
 
 #include <cairo/cairo.h>
 #include <cairo/cairo-pdf.h>
+
 #include <cups/cups.h>
+
 #include "cairopp.h"
 using namespace cairopp;
 
@@ -13,6 +15,23 @@ using namespace cairopp;
 //   http://www.gnu.org/software/gv/manual/html_node/Paper-Keywords-and-paper-size-in-points.html
 #define WIDTH  595
 #define HEIGHT 842
+
+void enumPrinters(void)
+{
+    cups_dest_t *dests, *dest = nullptr;
+    int num_dests = cupsGetDests(&dests);
+    int i;
+    for(i = 0, dest = dests; i < num_dests; i++, dest++)
+    {
+        if(dest->instance == nullptr)
+        {
+            /* do something with dest */
+            ui->cbPrinters->addItem(dest->name);
+        }
+    }
+
+    cupsFreeDests(num_dests, dests);
+}
 
 int main()
 {
